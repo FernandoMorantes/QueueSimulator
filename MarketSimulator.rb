@@ -30,7 +30,6 @@ class MarketSimulator
       puts "Iteracion: #{simulationIteration}"
 
       if simulationIteration % 3 == 0
-        puts 'sisas'
         @market.clientsArrive numberOfClients:Random.rand(0...6)
         @market.assignClientsInQueue
       end

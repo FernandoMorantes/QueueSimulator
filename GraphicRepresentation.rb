@@ -50,7 +50,7 @@ class GraphicRepresentation
 
     longestQueue.times do |i|
       (@market.queues).each do |queue|
-        (!queue.clients[i].nil?) ? print "|#{queue.clients[i].name}|  " : print '      '
+        (!queue.clients[i].nil?) ? print("|#{queue.clients[i].name}|  ") : print('      ')
       end
       print "\n"
     end
