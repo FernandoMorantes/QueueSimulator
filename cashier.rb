@@ -31,7 +31,6 @@ class Cashier
         else
             process_client
         end
-        @line.count_wait_time_for_clients
     end
 
     def process_client
