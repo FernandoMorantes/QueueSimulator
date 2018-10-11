@@ -1,23 +1,23 @@
 class Queue
-    attr_reader :clients
+  attr_reader :clients
 
-    def initialize
-        @clients = Array.new 
-    end
-    
-    def receive_client new_client
-        @clients << new_client
-    end
+  def initialize
+    @clients = []
+  end
 
-    def number_of_clients
-        @clients.size
-    end
+  def receive_client(new_client)
+    @clients << new_client
+  end
 
-    def remove_first_client 
-        @clients.shift
-    end
+  def number_of_clients
+    @clients.size
+  end
 
-    def count_wait_time_for_clients
-        @clients.each { |c| c.wait_on_line }
-    end
+  def remove_first_client
+    @clients.shift
+  end
+
+  def count_wait_time_for_clients
+    @clients.each(&:wait_on_line)
+  end
 end
