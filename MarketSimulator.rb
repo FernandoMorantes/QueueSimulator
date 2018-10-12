@@ -5,7 +5,7 @@ load 'SimulationParams.rb'
 
 class MarketSimulator
 
-  def startSimulation
+  def start_simulation
 
     puts "Simulador de filas\n"
 
@@ -13,83 +13,79 @@ class MarketSimulator
     puts "- Simulacion para unica fila (u)\n"
     puts "----------------------------------------------------------------------\n"
 
-    @simulationParams = getSimulationParams
+    @simulation_params = get_simulation_params
 
-    if @simulationParams.simulationType == 'v'
-      @market = MarketMultipleQueue.new @simulationParams.numberOfCashiers
+    if @simulation_params.simulation_type == 'v'
+      @market = MarketMultipleQueue.new number_of_cashiers:@simulation_params.number_of_cashiers
     else
-      @market = MarketUniqueQueue.new @simulationParams.numberOfCashiers
+      @market = MarketUniqueQueue.new number_of_cashiers:@simulation_params.number_of_cashiers
     end
 
-    simulationIteration = 1
-    @simulationCalculator = SimulatorCalculations.new
-    @graphicRepresentator = GraphicRepresentation.new(market:@market, simulationType:@simulationParams.simulationType)
+    simulation_iteration = 1
+    @simulation_calculator = SimulatorCalculations.new
+    @graphic_representator = GraphicRepresentation.new(market:@market, simulation_type:@simulation_params.simulation_type)
 
-    until @simulationParams.simulationTime < simulationIteration
+    until @simulation_params.simulation_time < simulation_iteration
 
-      puts "Iteracion: #{simulationIteration}"
+      puts "Iteracion: #{simulation_iteration}"
 
-      if simulationIteration % 3 == 0
-        @market.clientsArrive numberOfClients:Random.rand(0...6)
-        @market.assignClientsInQueue
+      if simulation_iteration % 3 == 0
+        @market.put_new_clients_in_queue
       end
 
-      (@market.cashiers).each do |cashier|
-        cashier.work
-        #me parece que el metodo que aumenta el riempo de espera de los clientes en la fila debe ir aca
-      end
+      @market.work
 
-      @graphicRepresentator.drawMarket
+      @graphic_representator.draw_market
 
-      sleep @simulationParams.simulationTimeDelay
-      simulationIteration += 1
+      sleep @simulation_params.simulation_time_delay
+      simulation_iteration += 1
     end
 
     (@market.cashiers).each do |cashier|
-      @simulationCalculator.addAttendedClients attendedClients:cashier.clients_attended
+      @simulation_calculator.add_attended_clients attended_clients:cashier.clients_attended
     end
 
-    averageWaitingTime = @simulationCalculator.getAverageWaitingTime
+    average_waiting_time = @simulation_calculator.get_average_waiting_time
 
-    puts "Tiempo promedio de espera por cliente: #{averageWaitingTime}"
+    puts "Tiempo promedio de espera por cliente: #{average_waiting_time}"
 
   end
 
-  def getSimulationParams
+  def get_simulation_params
 
-    userInput = UserInput.new
+    user_input = UserInput.new
 
     puts "Ingrese el tipo de simulacion (v o u)\n"
     begin
-      userInput.readSimulationType
-      puts "Parametro ingresado no valido\n" if !userInput.validSimulationType
-    end while !userInput.validSimulationType
+      user_input.read_simulation_type
+      puts "Parametro ingresado no valido\n" if !user_input.valid_simulation_time
+    end while !user_input.valid_simulation_type
 
     puts "----------------------------------------------------------------------\n"
     puts "Ingrese el numero de cajas activas\n"
     begin
-      userInput.readActiveCashiers
-      puts "Parametro ingresado no valido\n" if !userInput.validActiveCashiers
-    end while !userInput.validActiveCashiers
+      user_input.read_active_cashiers
+      puts "Parametro ingresado no valido\n" if !user_input.valid_active_cashiers
+    end while !user_input.valid_active_cashiers
 
     puts "----------------------------------------------------------------------\n"
     puts "Ingrese la cantidad de tiempo a simular (en minutos)\n"
     begin
-      userInput.readSimulationTime
-      puts "Parametro ingresado no valido\n" if !userInput.validSimulationTime
-    end while !userInput.validSimulationTime
+      user_input.read_simulation_time
+      puts "Parametro ingresado no valido\n" if !user_input.valid_simulation_time
+    end while !user_input.valid_simulation_time
 
     puts "----------------------------------------------------------------------\n"
     puts "Ingrese el tiempo entre iteraciones de la simulacion (en segundos)\n"
     begin
-      userInput.readTimeDelay
-      puts "Parametro ingresado no valido\n" if !userInput.validTimeDelay
-    end while !userInput.validTimeDelay
+      user_input.read_time_delay
+      puts "Parametro ingresado no valido\n" if !user_input.valid_time_delay
+    end while !user_input.valid_time_delay
 
-    SimulationParams.new inputParams:userInput.inputParams
+    SimulationParams.new input_params:user_input.input_params
   end
 
 end
 
-marketSimulator =  MarketSimulator.new
-marketSimulator.startSimulation
+market_simulator =  MarketSimulator.new
+market_simulator.start_simulation

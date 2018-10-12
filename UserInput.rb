@@ -1,57 +1,57 @@
 class UserInput
 
-  attr_reader :inputParams, :validSimulationType, :validActiveCashiers, :validSimulationTime, :validTimeDelay
+  attr_reader :input_params, :valid_simulation_type, :valid_active_cashiers, :valid_simulation_time, :valid_time_delay:
 
   def initialize
-    @inputParams = Array.new 4
-    @validSimulationType = true
-    @validActiveCashiers = true
-    @validSimulationTime = true
-    @validTimeDelay = true
+    @input_params = Array.new 4
+    @valid_simulation_type = true
+    @valid_active_cashiers = true
+    @valid_simulation_time = true
+    @valid_time_delay: = true
   end
 
-  def readSimulationType
+  def read_simulation_type
     input = gets.chomp
-    validateSimulationType input:input
-    @inputParams[0] = input if @validSimulationType
+    validate_simulation_type input:input
+    @input_params[0] = input if @valid_simulation_type
   end
 
-  def validateSimulationType input:
-    @validSimulationType = true
-    @validSimulationType = false if input.size != 1
-    @validSimulationType = false if input != 'v' && input != 'u'
+  def validate_simulation_type input:
+    @valid_simulation_type = true
+    @valid_simulation_type = false if input.size != 1
+    @valid_simulation_type = false if input != 'v' && input != 'u'
   end
 
-  def readActiveCashiers
+  def read_active_cashiers
     input = gets.chomp
-    validateActiveCashier input:input
-    @inputParams[1] = input if @validActiveCashiers
+    validate_active_cashiers input:input
+    @input_params[1] = input if @valid_active_cashiers
   end
 
-  def validateActiveCashier input:
-    @validActiveCashiers = true
-    @validActiveCashiers = false if !/\A\d+\z/.match(input) || input.to_i == 0
+  def validate_active_cashiers input:
+    @valid_active_cashiers = true
+    @valid_active_cashiers = false if !/\A\d+\z/.match(input) || input.to_i == 0
   end
 
-  def readSimulationTime
+  def read_simulation_time
     input = gets.chomp
-    validateSimulationTime input:input
-    @inputParams[2] = input if @validSimulationTime
+    validate_simulation_time input:input
+    @input_params[2] = input if @valid_simulation_time
   end
 
-  def validateSimulationTime input:
-    @validSimulationTime = true
-    @validSimulationTime = false if !/\A\d+\z/.match(input) || input.to_i == 0
+  def validate_simulation_time input:
+    @valid_simulation_time = true
+    @valid_simulation_time = false if !/\A\d+\z/.match(input) || input.to_i == 0
   end
 
-  def readTimeDelay
+  def read_time_delay
     input = gets.chomp
-    validateTimeDelay input:input
-    @inputParams[3] = input if @validTimeDelay
+    validate_time_delay input:input
+    @input_params[3] = input if @valid_time_delay:
   end
 
-  def validateTimeDelay input:
-    @validTimeDelay = true
-    @validTimeDelay = false if !/\A\d+\z/.match(input)
+  def validate_time_delay input:
+    @valid_time_delay: = true
+    @valid_time_delay: = false if !/\A\d+\z/.match(input)
   end
 end
