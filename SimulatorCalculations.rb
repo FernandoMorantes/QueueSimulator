@@ -1,22 +1,22 @@
 class SimulatorCalculations
 
   def initialize
-    @attendedClients = []
+    @attended_clients = []
   end
 
-  def addAttendedClients attendedClients:
-    @attendedClients << attendedClients
-    @attendedClients.flatten!
+  def add_attended_clients attended_clients:
+    @attended_clients << attended_clients
+    @attended_clients.flatten!
   end
 
-  def getAverageWaitingTime
-    totalWaitingTime = 0
+  def get_average_waiting_time
+    total_waiting_time = 0
 
-    @attendedClients.each do |client|
-      totalWaitingTime += client.time_on_line
+    @attended_clients.each do |client|
+      total_waiting_time += client.time_on_line
     end
 
-    (totalWaitingTime)/(@attendedClients.size)
+    (total_waiting_time)/(@attended_clients.size)
   end
 
 end
