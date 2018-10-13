@@ -2,6 +2,7 @@ load 'UserInput.rb'
 load 'GraphicRepresentation.rb'
 load 'SimulatorCalculations.rb'
 load 'SimulationParams.rb'
+load 'supermarket.rb'
 
 class MarketSimulator
 
@@ -27,7 +28,7 @@ class MarketSimulator
 
     until @simulation_params.simulation_time < simulation_iteration
 
-      puts "Iteracion: #{simulation_iteration}"
+      puts "\nIteracion: #{simulation_iteration}"
 
       if simulation_iteration % 3 == 0
         @market.put_new_clients_in_queue
@@ -87,5 +88,4 @@ class MarketSimulator
 
 end
 
-market_simulator =  MarketSimulator.new
-market_simulator.start_simulation
+

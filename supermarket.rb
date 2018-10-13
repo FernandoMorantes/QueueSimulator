@@ -60,6 +60,9 @@ class MarketMultipleQueue < Market
   def cashier_with_shortest_line
     temporal_cashier = @cashiers[0]
     @cashiers.each do |c|
+      if c.available? && c.line.number_of_clients.zero?
+        return c
+      end
       if temporal_cashier.line.number_of_clients > c.line.number_of_clients
         temporal_cashier = c
       end

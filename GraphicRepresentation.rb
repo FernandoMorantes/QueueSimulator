@@ -18,7 +18,11 @@ class GraphicRepresentation
     print "\n"
 
     (@market.cashiers).each do |cashier|
-      print " #{cashier.actual_client.name}   "
+      if cashier.actual_client.nil?
+        print "      "
+      else
+        print " #{cashier.actual_client.name}   "
+      end
     end
 
     print "\n\n"
@@ -27,7 +31,7 @@ class GraphicRepresentation
 
     (@market.queue.clients).each do |client|
       queue_ident_to_center.times {print ' '}
-      print "|#{client.name}|  \n"
+      print "|#{client.name}|  \n" 
     end
 
   end
@@ -41,7 +45,11 @@ class GraphicRepresentation
     print "\n"
 
     (@market.cashiers).each do |cashier|
-      print " #{cashier.actual_client.name}   "
+      if cashier.actual_client.nil?
+        print "      "
+      else
+        print " #{cashier.actual_client.name}   "
+      end
     end
 
     print "\n\n"
@@ -61,7 +69,7 @@ class GraphicRepresentation
     queues_size = []
 
     queues.each do |queue|
-      queues_size << queue.size
+      queues_size << queue.number_of_clients
     end
 
     queues_size.max
