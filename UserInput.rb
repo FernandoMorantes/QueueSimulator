@@ -1,13 +1,13 @@
 class UserInput
 
-  attr_reader :input_params, :valid_simulation_type, :valid_active_cashiers, :valid_simulation_time, :valid_time_delay:
+  attr_reader :input_params, :valid_simulation_type, :valid_active_cashiers, :valid_simulation_time, :valid_time_delay
 
   def initialize
     @input_params = Array.new 4
     @valid_simulation_type = true
     @valid_active_cashiers = true
     @valid_simulation_time = true
-    @valid_time_delay: = true
+    @valid_time_delay = true
   end
 
   def read_simulation_type
@@ -47,11 +47,11 @@ class UserInput
   def read_time_delay
     input = gets.chomp
     validate_time_delay input:input
-    @input_params[3] = input if @valid_time_delay:
+    @input_params[3] = input if @valid_time_delay
   end
 
   def validate_time_delay input:
-    @valid_time_delay: = true
-    @valid_time_delay: = false if !/\A\d+\z/.match(input)
+    @valid_time_delay = true
+    @valid_time_delay = false if !/\A\d+\z/.match(input)
   end
 end
