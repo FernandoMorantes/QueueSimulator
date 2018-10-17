@@ -2,7 +2,8 @@ load 'UserInput.rb'
 load 'GraphicRepresentation.rb'
 load 'SimulatorCalculations.rb'
 load 'SimulationParams.rb'
-load 'supermarket.rb'
+load 'MarketMultipleQueue.rb'
+load 'MarketUniqueQueue.rb'
 
 class MarketSimulator
 
@@ -28,7 +29,7 @@ class MarketSimulator
 
     until @simulation_params.simulation_time < simulation_iteration
 
-      puts "\nIteracion: #{simulation_iteration}"
+      puts "\nIteracion #{simulation_iteration}\n"
 
       if simulation_iteration % 3 == 0
         @market.put_new_clients_in_queue
@@ -44,11 +45,22 @@ class MarketSimulator
 
     (@market.cashiers).each do |cashier|
       @simulation_calculator.add_attended_clients attended_clients:cashier.clients_attended
+      @simulation_calculator.add_clients_in_market clients_in_market:cashier.actual_client if !cashier.actual_client.nil?
+    end
+
+    if @simulation_params.simulation_type == 'v'
+      (@market.queues).each do |queue|
+        @simulation_calculator.add_clients_in_market clients_in_market:queue.clients
+      end
+    else
+      @simulation_calculator.add_clients_in_market clients_in_market:@market.queue.clients
     end
 
     average_waiting_time = @simulation_calculator.get_average_waiting_time
 
-    puts "Tiempo promedio de espera por cliente: #{average_waiting_time}"
+    puts "Tiempo promedio de espera por cliente: #{average_waiting_time} minutos"
+    puts "Clientes atendidos: #{@simulation_calculator.attended_clients.size}"
+    puts "Total clientes: #{@simulation_calculator.clients_list.size}"
 
   end
 
@@ -59,7 +71,7 @@ class MarketSimulator
     puts "Ingrese el tipo de simulacion (v o u)\n"
     begin
       user_input.read_simulation_type
-      puts "Parametro ingresado no valido\n" if !user_input.valid_simulation_time
+      puts "Parametro ingresado no valido\n" if !user_input.valid_simulation_type
     end while !user_input.valid_simulation_type
 
     puts "----------------------------------------------------------------------\n"
@@ -87,5 +99,3 @@ class MarketSimulator
   end
 
 end
-
-

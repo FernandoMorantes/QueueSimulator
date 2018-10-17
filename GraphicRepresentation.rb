@@ -6,7 +6,9 @@ class GraphicRepresentation
   end
 
   def draw_market
+    puts '---------------------------------------------------------------------'
     (@simulation_type == 'u')? draw_unique_queue_market : draw_multiple_queues_market
+    puts '---------------------------------------------------------------------'
   end
 
   def draw_unique_queue_market
@@ -31,7 +33,7 @@ class GraphicRepresentation
 
     (@market.queue.clients).each do |client|
       queue_ident_to_center.times {print ' '}
-      print "|#{client.name}|  \n" 
+      print "|#{client.name}|  \n"
     end
 
   end
